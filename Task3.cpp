@@ -34,12 +34,12 @@ void main()
 	ptrB = bArr;
 	ptrC = cArr;
 	for (int i = 0; i < (MSIZE + NSIZE); i++, ptrC++) {  //
-		if (ptrB < &bArr[MSIZE] && ptrA < &aArr[NSIZE]) {
+		if (ptrB < &bArr[MSIZE] && ptrA <= &aArr[NSIZE]) {
 			if (*ptrA <= *ptrB) *ptrC = *ptrA++;
 			else *ptrC = *ptrB++;
 		}
-		if (ptrB > &bArr[MSIZE] && ptrA <= &aArr[NSIZE]) *ptrC = *ptrA++;
-		if (ptrA > &aArr[MSIZE] && ptrB <= &bArr[MSIZE]) *ptrC = *ptrB++;
+		if (ptrB > &bArr[MSIZE-1] && ptrA < &aArr[NSIZE]) *ptrC = *ptrA++;
+		if (ptrA > &aArr[NSIZE-1] && ptrB < &bArr[MSIZE]) *ptrC = *ptrB++;
 	}
 	cout << endl << "Итоговый массив C[n+m]" << endl;
 	printArr(cArr, NSIZE + MSIZE);
