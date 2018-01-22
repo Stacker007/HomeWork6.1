@@ -4,9 +4,49 @@
 
 #include <iostream>
 #include <ctime>
-#define NSIZE 5
+#define NSIZE 10
 #define MSIZE 5
 using namespace std;
+void randArr(int a[], int sizeArr);
+void printArr(int a[], int sizeArr);
+void sortArr(int a[], int sizeArr);
+
+void main()
+{
+	setlocale(LC_ALL, "rus");
+	srand(time(0));
+	int aArr[NSIZE];
+	int bArr[MSIZE];
+	int cArr[NSIZE + MSIZE] = {};
+
+	randArr(aArr, NSIZE);
+	sortArr(aArr, NSIZE);
+	cout << "Исходный массив А[n]:" << endl;
+	printArr(aArr, NSIZE);
+
+	randArr(bArr, MSIZE);
+	sortArr(bArr, MSIZE);
+	cout << "Исходный массив B[m]:" << endl;
+	printArr(bArr, MSIZE);
+
+	int *ptrA, *ptrB, *ptrC;
+	ptrA = aArr;
+	ptrB = bArr;
+	ptrC = cArr;
+	for (int i = 0; i < (MSIZE + NSIZE); i++, ptrC++) {  //
+		if (ptrB < &bArr[MSIZE] && ptrA < &aArr[NSIZE]) {
+			if (*ptrA <= *ptrB) *ptrC = *ptrA++;
+			else *ptrC = *ptrB++;
+		}
+		if (ptrB > &bArr[MSIZE] && ptrA <= &aArr[NSIZE]) *ptrC = *ptrA++;
+		if (ptrA > &aArr[MSIZE] && ptrB <= &bArr[MSIZE]) *ptrC = *ptrB++;
+	}
+	cout << endl << "Итоговый массив C[n+m]" << endl;
+	printArr(cArr, NSIZE + MSIZE);
+	system("pause");
+}
+
+
 void randArr(int a[], int sizeArr) {
 
 	int *ptr;
@@ -39,38 +79,4 @@ void sortArr(int a[], int sizeArr) {
 			}
 		k = endI;
 	}
-}
-void main()
-{
-	setlocale(LC_ALL, "rus");
-	srand(time(0));
-	int aArr[NSIZE];
-	int bArr[MSIZE];
-	int cArr[NSIZE + MSIZE] = {};
-
-	randArr(aArr, NSIZE);
-	sortArr(aArr, NSIZE);
-	cout << "Исходный массив А[n]:" << endl;
-	printArr(aArr, NSIZE);
-
-	randArr(bArr, MSIZE);
-	sortArr(bArr, MSIZE);
-	cout << "Исходный массив B[m]:" << endl;
-	printArr(bArr, MSIZE);
-
-	int *ptrA, *ptrB, *ptrC;
-	ptrA = aArr;
-	ptrB = bArr;
-	ptrC = cArr;	
-	for (int i = 0; i < (MSIZE + NSIZE); i++, ptrC++) {  //
-		if (ptrB <= &bArr[MSIZE] && ptrA <= &aArr[NSIZE]) {
-			if (*ptrA <= *ptrB) *ptrC = *ptrA++;
-			else *ptrC = *ptrB++;
-		}
-		if (ptrB > &bArr[MSIZE]) *ptrC = *ptrA++;
-		if (ptrA > &aArr[MSIZE]) *ptrC = *ptrB++;
-	}
-	cout << endl << "Итоговый массив C[n+m]" << endl;
-	printArr(cArr, NSIZE + MSIZE);
-	system("pause");
 }
