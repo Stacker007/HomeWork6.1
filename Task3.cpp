@@ -4,11 +4,11 @@
 
 #include <iostream>
 #include <ctime>
-#define NSIZE 10
-#define MSIZE 15
+#define NSIZE 5
+#define MSIZE 5
 using namespace std;
-void randArr (int a[], int sizeArr) {
-	srand(time(0));
+void randArr(int a[], int sizeArr) {
+
 	int *ptr;
 	ptr = a;
 	for (int i = 0; i<sizeArr; i++, ptr++)
@@ -43,33 +43,34 @@ void sortArr(int a[], int sizeArr) {
 void main()
 {
 	setlocale(LC_ALL, "rus");
+	srand(time(0));
 	int aArr[NSIZE];
 	int bArr[MSIZE];
 	int cArr[NSIZE + MSIZE] = {};
+
 	randArr(aArr, NSIZE);
-	//printArr(aArr, NSIZE);
 	sortArr(aArr, NSIZE);
 	cout << "Исходный массив А[n]:" << endl;
 	printArr(aArr, NSIZE);
 
-	system("pause");//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
 	randArr(bArr, MSIZE);
-	//printArr(bArr, MSIZE);
 	sortArr(bArr, MSIZE);
 	cout << "Исходный массив B[m]:" << endl;
 	printArr(bArr, MSIZE);
+
 	int *ptrA, *ptrB, *ptrC;
 	ptrA = aArr;
 	ptrB = bArr;
-	ptrC = cArr;
-	for (int i = 0; i < NSIZE + MSIZE; i++, ptrC++) {
-		if (i < NSIZE) *ptrC = *ptrA++;
-		else *ptrC = *ptrB++;
+	ptrC = cArr;	
+	for (int i = 0; i < (MSIZE + NSIZE); i++, ptrC++) {  //
+		if (ptrB <= &bArr[MSIZE] && ptrA <= &aArr[NSIZE]) {
+			if (*ptrA <= *ptrB) *ptrC = *ptrA++;
+			else *ptrC = *ptrB++;
+		}
+		if (ptrB > &bArr[MSIZE]) *ptrC = *ptrA++;
+		if (ptrA > &aArr[MSIZE]) *ptrC = *ptrB++;
 	}
-	sortArr(cArr, NSIZE + MSIZE);
 	cout << endl << "Итоговый массив C[n+m]" << endl;
 	printArr(cArr, NSIZE + MSIZE);
-
 	system("pause");
 }
