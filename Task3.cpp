@@ -4,8 +4,8 @@
 
 #include <iostream>
 #include <ctime>
-#define NSIZE 10
-#define MSIZE 7
+#define NSIZE 30
+#define MSIZE 5
 using namespace std;
 void randArr(int a[], int sizeArr);
 void printArr(int a[], int sizeArr);
@@ -34,13 +34,19 @@ void main()
 	ptrB = bArr;
 	ptrC = cArr;
 	for (int i = 0; i < (MSIZE + NSIZE); i++, ptrC++) {  //
-		if (ptrB <= &bArr[MSIZE-1] && ptrA <= &aArr[NSIZE-1]) {
-			if (*ptrA <= *ptrB) *ptrC = *ptrA++;
-			else *ptrC = *ptrB++;
+		if (ptrB-1 < &bArr[MSIZE-1] && ptrA-1 < &aArr[NSIZE-1]) {
+			if (*ptrA <= *ptrB)	{
+				*ptrC = *ptrA++;
+				continue;
+			}
+			else {
+				*ptrC = *ptrB++;
+				continue;
+			}
 		}
-		if (ptrB > &bArr[MSIZE - 1] && ptrA <= &aArr[NSIZE-1])
+		if (ptrB > &bArr[MSIZE - 1] && ptrA - 1 < &aArr[NSIZE - 1])
 			*ptrC = *ptrA++;
-		if (ptrA > &aArr[NSIZE - 1] && ptrB <= &bArr[MSIZE-1])
+		if (ptrA > &aArr[NSIZE - 1] && ptrB - 1 < &bArr[MSIZE - 1])
 			*ptrC = *ptrB++;
 	}
 	cout << endl << "Итоговый массив C[n+m]" << endl;
