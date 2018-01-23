@@ -4,8 +4,8 @@
 
 #include <iostream>
 #include <ctime>
-#define NSIZE 30
-#define MSIZE 5
+#define NSIZE 33
+#define MSIZE 12
 using namespace std;
 void randArr(int a[], int sizeArr);
 void printArr(int a[], int sizeArr);
@@ -18,17 +18,20 @@ void main()
 	int aArr[NSIZE];
 	int bArr[MSIZE];
 	int cArr[NSIZE + MSIZE] = {};
-
-	randArr(aArr, NSIZE);
-	sortArr(aArr, NSIZE);
-	cout << "Исходный массив А[n]:" << endl;
-	printArr(aArr, NSIZE);
-
-	randArr(bArr, MSIZE);
+	//Генерация сортированного массива  А[n]:
+	//(Инициализируем случайными числами, потом сортируем)
+	{
+		randArr(aArr, NSIZE);
+		sortArr(aArr, NSIZE);
+		cout << "Исходный массив А[n]:" << endl;
+		printArr(aArr, NSIZE);
+	}
+	//Генерация сортированного массива  B[m]:
+	{randArr(bArr, MSIZE);
 	sortArr(bArr, MSIZE);
 	cout << "Исходный массив B[m]:" << endl;
-	printArr(bArr, MSIZE);
-
+	printArr(bArr, MSIZE); }
+	
 	int *ptrA, *ptrB, *ptrC;
 	ptrA = aArr;
 	ptrB = bArr;
