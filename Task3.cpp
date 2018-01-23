@@ -1,6 +1,7 @@
-/*3. Даны два массива, упорядоченных по возрастанию: А[n] и B[m]. Сформируйте
-массив C[n+m], состоящий из элементов массивов А и В, упорядоченный по
-возрастанию.*/
+/*4. Даны два массива: А[n] и B[m]. Необходимо создать третий массив, в котором
+нужно собрать:
+• Общие элементы двух массивов;
+• Элементы массива A, которые не включаются в B;*/
 
 #include <iostream>
 #include <ctime>
@@ -37,7 +38,7 @@ void main()
 	ptrB = bArr;
 	ptrC = cArr;
 	for (int i = 0; i < (MSIZE + NSIZE); i++, ptrC++) {  //
-		if (ptrB-1 < &bArr[MSIZE-1] && ptrA-1 < &aArr[NSIZE-1]) {
+		if (ptrB-1 < &bArr[MSIZE-1] && ptrA-1 < &aArr[NSIZE-1]) {//если ptrB не вышел за пределы В, и ptrA не вышел за пределы А
 			if (*ptrA <= *ptrB)	{
 				*ptrC = *ptrA++;
 				continue;
@@ -47,7 +48,7 @@ void main()
 				continue;
 			}
 		}
-		if (ptrB > &bArr[MSIZE - 1] && ptrA - 1 < &aArr[NSIZE - 1])
+		if (ptrB > &bArr[MSIZE - 1] && ptrA - 1 < &aArr[NSIZE - 1])//если ptrB вышел за пределы В, а ptrA  не вышел за пределы А
 			*ptrC = *ptrA++;
 		if (ptrA > &aArr[NSIZE - 1] && ptrB - 1 < &bArr[MSIZE - 1])
 			*ptrC = *ptrB++;
