@@ -16,45 +16,62 @@ void main()
 {
 	setlocale(LC_ALL, "rus");
 	srand(time(0));
-	int aArr[NSIZE];
-	int bArr[MSIZE];
-	int cArr[NSIZE + MSIZE] = {};
+	int arrA[NSIZE];
+	int arrB[MSIZE];
+	int arrC[NSIZE] = {};
 	//Генерация сортированного массива  А[n]:
-	//(Инициализируем случайными числами, потом сортируем)
+	//(Инициализируем случайными числами)
 	{
-		randArr(aArr, NSIZE);
-		sortArr(aArr, NSIZE);
-		cout << "Исходный массив А[n]:" << endl;
-		printArr(aArr, NSIZE);
+		randArr(arrA, NSIZE);		
+		/*cout << "Исходный массив А[n]:" << endl;
+		printArr(arrA, NSIZE);*/
+		sortArr(arrA, NSIZE);
+		cout << "Сортированный массив А[n]:" << endl;
+		printArr(arrA, NSIZE);
 	}
 	//Генерация сортированного массива  B[m]:
-	{randArr(bArr, MSIZE);
-	sortArr(bArr, MSIZE);
-	cout << "Исходный массив B[m]:" << endl;
-	printArr(bArr, MSIZE); }
+	{
+		randArr(arrB, MSIZE);		
+		/*cout << "Исходный массив B[m]:" << endl;
+		printArr(arrB, MSIZE);*/
+		sortArr(arrB, MSIZE);
+		cout << "Сортированный массив B[m]:" << endl;
+		printArr(arrB, MSIZE);
+	}
 	
 	int *ptrA, *ptrB, *ptrC;
-	ptrA = aArr;
-	ptrB = bArr;
-	ptrC = cArr;
-	for (int i = 0; i < (MSIZE + NSIZE); i++, ptrC++) {  //
-		if (ptrB-1 < &bArr[MSIZE-1] && ptrA-1 < &aArr[NSIZE-1]) {//если ptrB не вышел за пределы В, и ptrA не вышел за пределы А
-			if (*ptrA <= *ptrB)	{
-				*ptrC = *ptrA++;
-				continue;
-			}
-			else {
-				*ptrC = *ptrB++;
-				continue;
+	ptrC = arrC;
+	int col = 0;
+	for (ptrA = arrA; ptrA < &arrA[NSIZE]; ptrA++) {
+		for (ptrB=arrB ; ptrB<&arrB[MSIZE] ; ptrB++)
+		{
+			if (*ptrA == *ptrB&& *ptrA!=*(ptrA-1)) {
+				*ptrC = *ptrA;
+				ptrC++;
+				col++;
+				break;
 			}
 		}
-		if (ptrB > &bArr[MSIZE - 1] && ptrA - 1 < &aArr[NSIZE - 1])//если ptrB вышел за пределы В, а ptrA  не вышел за пределы А
-			*ptrC = *ptrA++;
-		if (ptrA > &aArr[NSIZE - 1] && ptrB - 1 < &bArr[MSIZE - 1])
-			*ptrC = *ptrB++;
 	}
-	cout << endl << "Итоговый массив C[n+m]" << endl;
-	printArr(cArr, NSIZE + MSIZE);
+
+	*ptrC = 111;
+	ptrC++;
+	col++;
+
+	for (ptrA = arrA; ptrA < &arrA[NSIZE]; ptrA++) {
+		int flag = 0;
+		for (ptrB = arrB; ptrB<&arrB[MSIZE]; ptrB++)
+		{
+			if (*ptrA == *ptrB) flag++;
+		}
+		if (flag < 1 && *ptrA!=*(ptrA+1)) {
+			*ptrC = *ptrA;
+			ptrC++;
+			col++;
+		}
+	}
+	cout << endl << "Итоговый массив C[]" << endl;
+	printArr(arrC, col);
 	system("pause");
 }
 
